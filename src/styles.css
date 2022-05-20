@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+
+.elevacion {
+    box-shadow: 2px 2px 5px #999;
+}
+
+.radius {
+    border-radius: 50%;
+}

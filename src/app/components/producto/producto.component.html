@@ -1,1 +1,64 @@
-<p>producto works!</p>
+<button class="btn btn-primary radius elevacion" data-bs-toggle="modal" data-bs-target="#modal-nuevo">
+    <i class="fa-solid fa-plus"></i>
+</button>
+
+<div class="card mt-4 elevacion">
+    <div class="card-body">
+      
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+
+                        <button class="btn btn-secondary radius elevacion">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button class="btn btn-danger ms-2 radius elevacion">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
+
+<!-- Inicion modal nuevo producto -->
+
+<div class="modal fade" id="modal-nuevo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-secondary">
+          <h5 class="modal-title text-white" id="exampleModalLabel">Nuevo producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Final modal nuevo producto -->
