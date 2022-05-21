@@ -5,13 +5,13 @@
 <div class="card mt-4 elevacion">
     <div class="card-body">
       
-        <div class="card">
+        <div class="card" *ngFor="let categoria of categorias">
             <div class="card-header">
-              Código categoria
+              <strong>Código categoria: </strong> {{categoria.id}}
             </div>
             <div class="card-body">
               <h5 class="card-title">Descripción de categoría</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text">{{categoria.descripcion}}</p>
               <button class="btn btn-secondary radius elevacion">
                 <i class="fa-solid fa-pen"></i>
               </button>
@@ -20,7 +20,7 @@
               </button>
             </div>
           </div>
-
+       
     </div>
 </div>
 
