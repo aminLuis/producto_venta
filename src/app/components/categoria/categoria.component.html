@@ -1,21 +1,29 @@
-<button class="btn btn-primary radius elevacion" data-bs-toggle="modal" data-bs-target="#modal-nueva">
+<button class="btn btn-primary radius elevacion" 
+data-bs-toggle="modal" data-bs-target="#modal-nueva"
+(click)="reiniciar_validacion()"
+>
     <i class="fa-solid fa-plus"></i>
 </button>
 
 <div class="card mt-4 elevacion">
     <div class="card-body">
       
-        <div class="card" *ngFor="let categoria of categorias">
+        <div class="card mt-1" *ngFor="let categoria of categorias">
             <div class="card-header">
               <strong>Código categoria: </strong> {{categoria.id}}
             </div>
             <div class="card-body">
               <h5 class="card-title">Descripción de categoría</h5>
               <p class="card-text">{{categoria.descripcion}}</p>
-              <button class="btn btn-secondary radius elevacion">
+              <button class="btn btn-secondary radius elevacion" 
+              data-bs-toggle="modal" data-bs-target="#modal-editar"
+              (click)="cargar_datos(categoria); reiniciar_validacion()"
+              >
                 <i class="fa-solid fa-pen"></i>
               </button>
-              <button class="btn btn-danger ms-2 radius elevacion">
+              <button class="btn btn-danger ms-2 radius elevacion"
+              (click)="delete_categoria(categoria.id)"
+              >
                 <i class="fa-solid fa-trash-can"></i>
               </button>
             </div>
@@ -34,14 +42,73 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          ...
+         
+          <form [formGroup]="form_categoria_nueva" (ngSubmit)="save_categoria()">
+
+            <div class="row">
+              <div class="col">
+                <label for="">Descripción de categoría</label>
+                <input formControlName="descripcion" 
+                type="text" class="form-control elevacion"
+                >
+                <div *ngIf="descripcion_val" class="alert alert-danger elevacion mt-1" role="alert">
+                  Debe llenar el campo 'Descripción de categoría' !!
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-success elevacion mt-3">Guardar</button>
+
+          </form>
+
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          
         </div>
       </div>
     </div>
   </div>
 
-<!-- Final modal nueva categoria -->
+<!-- Final modal nueva categoría -->
+
+
+
+<!-- Inicion modal editar categoría -->
+
+<div class="modal fade" id="modal-editar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-secondary">
+        <h5 class="modal-title text-white" id="exampleModalLabel">Editar categoría</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+        <form [formGroup]="form_categoria_editar" (ngSubmit)="edit_categoria()">
+
+          <div class="row">
+            <div class="col">
+              <label for="">Descripción de categoría</label>
+              <input *ngIf="categoria_edit"
+              formControlName="descripcion"
+              type="text" 
+              class="form-control elevacion"
+              [(ngModel)]="categoria_edit.descripcion"
+              >
+              <div *ngIf="descripcion_val" class="alert alert-danger elevacion mt-1" role="alert">
+                Debe llenar el campo 'Descripción de categoría' !!
+              </div>
+            </div>
+          </div>
+
+          <button class="btn btn-success elevacion mt-3">Guardar cambio</button>
+
+        </form>
+
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!-- Final modal editar categoría -->
