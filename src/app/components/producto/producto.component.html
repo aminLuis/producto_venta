@@ -1,11 +1,15 @@
-<button class="btn btn-primary radius elevacion" data-bs-toggle="modal" data-bs-target="#modal-nuevo">
+<div>
+  <h4>Registro de productos</h4>
+</div>
+ 
+ <button class="btn btn-primary radius elevacion mt-4" data-bs-toggle="modal" data-bs-target="#modal-nuevo">
     <i class="fa-solid fa-plus"></i>
 </button>
 
 <div class="card mt-4 elevacion">
     <div class="card-body">
       
-        <table class="table">
+        <table class="table table-hover">
 
             <thead>
                 <tr>
@@ -18,17 +22,22 @@
             </thead>
 
             <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                <tr *ngFor="let producto of productos">
+                    <td>{{producto.id}}</td>
+                    <td>{{producto.descripcion}}</td>
+                    <td>{{producto.precio}}</td>
+                    <td>{{producto.cantidad}}</td>
                     <td>
 
-                        <button class="btn btn-secondary radius elevacion">
+                        <button class="btn btn-secondary radius elevacion"
+                        data-bs-toggle="modal" data-bs-target="#modal-editar"
+                        (click)="cargar_datos(producto)"
+                        >
                             <i class="fa-solid fa-pen"></i>
                         </button>
-                        <button class="btn btn-danger ms-2 radius elevacion">
+                        <button class="btn btn-danger ms-2 radius elevacion"
+                        (click)="delete_producto(producto.id)"
+                        >
                             <i class="fa-solid fa-trash-can"></i>
                         </button>
 
@@ -44,21 +53,152 @@
 <!-- Inicion modal nuevo producto -->
 
 <div class="modal fade" id="modal-nuevo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header bg-secondary">
           <h5 class="modal-title text-white" id="exampleModalLabel">Nuevo producto</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          ...
+          
+          <form [formGroup]="form_producto_nuevo" (ngSubmit)="save_producto()">
+
+            <div class="row">
+
+              <div class="col">
+                <label for="">Descripción del producto</label>
+                <input formControlName="descripcion" type="text" class="form-control elevacion">
+                <div *ngIf="descripcion_val" class="alert alert-danger elevacion mt-1 form-control" role="alert">
+                  Llene el campo 'Descripción del producto' !!
+                </div>
+              </div>
+
+              <div class="col">
+                <label for="">Precio del producto</label>
+                <input formControlName="precio" type="number" step="any" class="form-control elevacion">
+                <div *ngIf="precio_val" class="alert alert-danger elevacion mt-1 form-control" role="alert">
+                  Llene el campo 'Precio del producto' !!
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <label for="">Cantidad producto</label>
+                <input formControlName="cantidad" type="number" class="form-control elevacion">
+                <div *ngIf="cantidad_val" class="alert alert-danger elevacion mt-1 form-control" role="alert">
+                  Llene el campo 'Cantidad producto' !!
+                </div>
+              </div>
+
+              <div class="col">
+                <label for="">Categoría del producto</label>
+                <select formControlName="categoriaId" class="form-control elevacion">
+                  <option selected value="" disabled>Seleccione una categoría</option>
+                  <option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.descripcion}}</option>
+                </select>
+                <div *ngIf="categoria_val" class="alert alert-danger elevacion mt-1 form-control" role="alert">
+                  Seleccione una categoría !!
+                </div>
+              </div>
+
+            </div>
+
+            <button class="btn btn-success elevacion mt-3">Guardar</button>
+
+          </form>
+
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+        
       </div>
     </div>
   </div>
 
 <!-- Final modal nuevo producto -->
+
+
+
+<!-- Inicio modal ediatr producto -->
+
+<div class="modal fade" id="modal-editar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-secondary">
+        <h5 class="modal-title text-white" id="exampleModalLabel">Editar producto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+        <form [formGroup]="form_producto_editar" (ngSubmit)="edit_producto()">
+
+          <div class="row">
+
+            <div class="col">
+              <label for="">Descripción del producto</label>
+              <input formControlName="descripcion" 
+              type="text" class="form-control elevacion"
+              *ngIf="producto_edit"
+              [(ngModel)]="producto_edit.descripcion"
+              >
+              <div *ngIf="descripcion_val" class="alert alert-danger elevacion mt-1 form-control" role="alert">
+                Llene el campo 'Descripción del producto' !!
+              </div>
+            </div>
+
+            <div class="col">
+              <label for="">Precio del producto</label>
+              <input formControlName="precio" 
+              type="number" step="any" 
+              class="form-control elevacion"
+              *ngIf="producto_edit"
+              [(ngModel)]="producto_edit.precio"
+              >
+              <div *ngIf="precio_val" class="alert alert-danger elevacion mt-1 form-control" role="alert">
+                Llene el campo 'Precio del producto' !!
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <label for="">Cantidad producto</label>
+              <input formControlName="cantidad" 
+              type="number" 
+              class="form-control elevacion"
+              *ngIf="producto_edit"
+              [(ngModel)]="producto_edit.cantidad"
+              >
+              <div *ngIf="cantidad_val" class="alert alert-danger elevacion mt-1 form-control" role="alert">
+                Llene el campo 'Cantidad producto' !!
+              </div>
+            </div>
+
+            <div class="col">
+              <label for="">Categoría del producto</label>
+              <select formControlName="categoriaId" 
+              class="form-control elevacion"
+              *ngIf="producto_edit"
+              [(ngModel)]="producto_edit.categoriaId"
+              >
+                
+                <option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.descripcion}}</option>
+              </select>
+              
+              <div *ngIf="categoria_val" class="alert alert-danger elevacion mt-1 form-control" role="alert">
+                Seleccione una categoría !!
+              </div>
+            </div>
+
+          </div>
+
+          <button class="btn btn-success elevacion mt-3">Guardar</button>
+
+        </form>
+
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!-- Final modal editar producto -->

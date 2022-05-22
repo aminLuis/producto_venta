@@ -53,7 +53,7 @@ export class CategoriaComponent implements OnInit {
         this.mensaje_success('Categoría registrada con exito!');
         this.form_categoria_nueva.reset();
         this.reiniciar_validacion();
-      })
+      });
     }else{
      this.validacion_campos();
      this.mensaje_error('Hay campo(s) vacio(s) !!');
