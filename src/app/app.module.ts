@@ -9,6 +9,7 @@ import { HeaderComponent } from './header/header.component';
 import { BodyComponent } from './body/body.component';
 import { CategoriaComponent } from './components/categoria/categoria.component';
 import { ProductoComponent } from './components/producto/producto.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const routes:Routes = [
   {path: 'categoria-component', component:CategoriaComponent},
@@ -29,6 +30,7 @@ const routes:Routes = [
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     RouterModule.forRoot(routes)
   ],
   providers: [],

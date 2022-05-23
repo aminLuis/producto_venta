@@ -22,8 +22,13 @@
             </thead>
 
             <tbody>
-                <tr *ngFor="let producto of productos">
-                    <td>{{producto.id}}</td>
+                <tr *ngFor="let producto of productos | paginate :{
+                  itemsPerPage: 5,
+                  currentPage: current_page
+                };
+                let i = index    
+                ">
+                    <td>{{i+1}}</td>
                     <td>{{producto.descripcion}}</td>
                     <td>{{producto.precio}}</td>
                     <td>{{producto.cantidad}}</td>
@@ -35,6 +40,7 @@
                         >
                             <i class="fa-solid fa-pen"></i>
                         </button>
+
                         <button class="btn btn-danger ms-2 radius elevacion"
                         (click)="delete_producto(producto.id)"
                         >
@@ -46,6 +52,15 @@
             </tbody>
 
         </table>
+
+        <div class="paginate">
+          <pagination-controls
+            previousLabel="Anterior" 
+            nextLabel="Siguiente"
+            (pageChange)="onTableDataChange($event)"
+          >
+        </pagination-controls>
+        </div>
 
     </div>
 </div>

@@ -24,6 +24,9 @@ export class ProductoComponent implements OnInit {
   precio_val: boolean = false;
   cantidad_val: boolean = false;
   categoria_val: boolean = false;
+  current_page: number=1;
+  tableSize: number = 7;
+  tableSizes: any = [3, 6, 9, 12];
 
   constructor(private service_producto:ProductoServiceService, 
     private service_categoria:CategoriaServiceService, 
@@ -176,5 +179,14 @@ export class ProductoComponent implements OnInit {
     }
   }
 
+  onTableDataChange(event: any) {
+    this.current_page = event;
+    this.listar_productos();
+  }
+  onTableSizeChange(event: any): void {
+    this.tableSize = event.target.value;
+    this.current_page = 1;
+    this.listar_productos();
+  }
 
 }
